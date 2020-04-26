@@ -1,0 +1,38 @@
+ # 发件服务器账号
+emailName: "xxxxxx@qq.com"
+ # 发件服务器密码
+emailPassword: "xxxxxx"
+ # 收件服务器账号
+toEmail: "xxxxxx@126.com"
+ # 可选浏览器UA
+defaultUserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"
+ # 最小评论间隔
+delayMin: 300
+ # 最大评论间隔
+delayMax: 3600
+accounts:
+    -
+         # 账号
+        "username": "user0001"
+         # 手机号
+        "phone": "18800001111"
+         # 个性化浏览器UA
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"
+        # 浏览器请求头Cookie
+        "cookies": "xxxxxx=yyyyyy"
+# 评论池, 随机选取使用
+comments:
+    - "真的及时,正好需要,已入手[高兴]"
+    - "我觉还可以做等等党, 等等党必胜![得意]"
+    - "请问这个是历史最低价了吗?[看看]"
+    - "我要不要等618再说"
+    - "双11还能再便宜些吗?"
+    - "有没有懂的值友给解解毒?"
+    - "前几天下单的,马上收货,用完我再来解毒."
+    - "有拆解吗?我只相信拆解.眼见为实!"
+    - "这价不错~"
+    - "每次评论都是你们几个账号,能不能认真点[皱眉]"
+    - "要是清朝以前的我就买了[嘿嘿嘿]"
+    - "又到了韭菜茂盛的时候了[无语]"
+    - "买一个试试咋样"
+    - "下一单尝尝"
