@@ -1,6 +1,9 @@
 package main
 
 import (
+	"flag"
+	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"math/rand"
@@ -12,7 +15,9 @@ import (
 )
 
 var (
-	conf = &config{}
+	conf              *config = &config{}
+	configPath        *string = nil
+	defaultConfigPath string  = "config.sample.yaml"
 )
 
 type account struct {
@@ -33,13 +38,9 @@ type config struct {
 }
 
 func init() {
-	configFile, e := os.OpenFile("config.yaml", os.O_RDWR, 0644)
-	checkError(e)
-	configStr, e := ioutil.ReadAll(configFile)
-	checkError(e)
-	e = yaml.Unmarshal(configStr, conf)
-	checkError(e)
+	parseConf()
 }
+
 func main() {
 	if len(conf.Accounts) > 0 {
 		wg := &sync.WaitGroup{}
@@ -53,6 +54,51 @@ func main() {
 		}
 		wg.Wait()
 	}
+}
+
+func parseConf() {
+	configPath = flag.String("c", "config.yaml", "path to config.yaml")
+	flag.Parse()
+	// config.yaml不存在则使用config.sample.yaml
+	configFile, err := os.OpenFile(*configPath, os.O_RDWR, 0644)
+	if err != nil {
+		switch {
+		case os.IsPermission(err):
+			checkError(fmt.Errorf("无法访问配置文件: %s", *configPath))
+		case os.IsNotExist(err):
+			// 打开样板配置文件
+			sampleConfigFile, err := os.OpenFile(defaultConfigPath, os.O_RDWR, 0644)
+			checkError(err)
+			defer sampleConfigFile.Close()
+			// 创建配置文件
+			configFile, err = os.OpenFile(*configPath, os.O_CREATE|os.O_RDWR, 0644)
+			checkError(err)
+			defer configFile.Close()
+			// 复制: 样板配置 => 配置
+			confByteNum, err := io.Copy(configFile, sampleConfigFile)
+			checkError(err)
+			if confByteNum < 1 {
+				checkError(fmt.Errorf("复制%s到%s失败", defaultConfigPath, *configPath))
+			}
+			log.Printf("使用默认配置文件: %s (%d字节)", defaultConfigPath, confByteNum)
+			// 写入磁盘
+			err = configFile.Sync()
+			checkError(err)
+			// 从头读取
+			_, err = configFile.Seek(0, io.SeekStart)
+			checkError(err)
+		default:
+			checkError(err)
+		}
+	} else {
+		defer configFile.Close()
+	}
+	// 读取配置文件
+	configStr, err := ioutil.ReadAll(configFile)
+	checkError(err)
+	// 解析配置文件
+	err = yaml.Unmarshal(configStr, conf)
+	checkError(err)
 }
 
 func toSign(acnt account) {

@@ -4,6 +4,6 @@ import "log"
 
 func checkError(e error) {
 	if e != nil {
-		log.Println(e)
+		log.Panic(e)
 	}
 }
