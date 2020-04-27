@@ -11,12 +11,12 @@ emailTo:
     - "xxxxxx@126.com"
 # 可选浏览器UA
 defaultUserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"
-# 最小评论间隔
+# 最小评论间隔, 单位:秒
 delayMin: 300
-# 最大评论间隔
+# 最大评论间隔, 单位:秒
 delayMax: 3600
 # 每天评论前n篇文章
-postCommentMax: 1
+postCommentMax: 3
 accounts:
     -
         # 账号
