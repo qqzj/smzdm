@@ -15,9 +15,10 @@ import (
 )
 
 var (
-	conf              *config = &config{}
-	configPath        *string = nil
-	defaultConfigPath string  = "config.sample.yaml"
+	startAt           time.Time = time.Now()
+	conf              *config   = &config{}
+	configPath        *string   = nil
+	defaultConfigPath string    = "config.sample.yaml"
 	signResult        []signJson
 	commentResult     []commentJson
 )
@@ -27,20 +28,21 @@ func init() {
 }
 
 func main() {
-
 	if len(conf.Accounts) > 0 {
 		wg := &sync.WaitGroup{}
-		for _, acnt := range conf.Accounts {
+		for index, account := range conf.Accounts {
 			wg.Add(1)
-			acnt := acnt
+			// 实例化
+			i := index
+			a := account
 			go func() {
 				defer wg.Done()
-				toSignAndComment(acnt)
+				var smzdmer smzdm = NewCracker(i, a)
+				toSignAndComment(smzdmer)
 			}()
 		}
 		wg.Wait()
 		send()
-		// return
 	}
 }
 
@@ -89,26 +91,22 @@ func parseConf() {
 	checkError(err)
 }
 
-func toSignAndComment(acnt account) {
-	// 实例化
-	var smzdm smzdm = NewCracker(conf.Accounts[0])
-
+func toSignAndComment(smzdmer smzdm) {
 	// ①签到
-	ok, err := smzdm.smzdmSign()
+	ok, err := smzdmer.smzdmSign()
 	if !ok {
 		panic(err)
 	} else {
 		log.Printf("签到成功")
 	}
-	return
+
 	// ②获取最新文章
-	postID := smzdm.getPostID()
+	postID := smzdmer.getPostID()
 	log.Printf("获取最新文章: %+v\n", postID)
 
+	// ③前n篇文章留言
 	mtrand := rand.New(rand.NewSource(time.Now().UnixNano()))
-
-	// ③前5篇文章留言
-	if postIDNum := len(postID); postIDNum < 5 {
+	if postIDNum := len(postID); postIDNum < conf.PostCommentMax {
 		log.Panicf("获取最新文章[%d]篇, 数据异常, 不予评论", postIDNum)
 	}
 	confCommentsLen := len(conf.Comments)
@@ -121,7 +119,7 @@ func toSignAndComment(acnt account) {
 		log.Printf("文章[%d]将于[%d秒后]评论[%s]\n", id, td/time.Second, comment)
 		time.Sleep(td)
 		// 开始评论
-		ok, err := smzdm.smzdmCommit(id, comment)
+		ok, err := smzdmer.smzdmCommit(id, comment)
 		if !ok {
 			panic(err)
 		} else {
