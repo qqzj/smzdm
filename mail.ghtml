@@ -1,0 +1,66 @@
+From: Smzdm-Auto-Sign<{{.Conf.EmailFrom}}>
+To: {{join .Conf.EmailTo ", "}}
+Subject: {{.Conf.EmailToSubject}}_{{dateTime "20060102"}}
+Content-Type: text/html; charset=utf-8
+
+<hr />
+<table width="100%" border="1" cellspacing="0" cellpadding="0">
+    <caption>签到数据</caption>
+    <tr>
+        <th align="left">编号</th>
+        <th align="left">昵称</th>
+        <th align="left">签到时间</th>
+        <th align="left">新增积分经验</th>
+        <th align="left">连续签到(day)</th>
+        <th align="left">总积分</th>
+        <th align="left">总经验</th>
+        <th align="left">总金币</th>
+        <th align="left">声望</th>
+        <th align="left">等级</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+    </tr>
+</table>
+<hr />
+<table width="100%" border="1" cellspacing="0" cellpadding="0">
+    <caption>评论数据</caption>
+    <tr>
+        <th align="left">编号</th>
+        <th align="left">昵称</th>
+        <th align="left">评论时间</th>
+        <th align="left">评论内容</th>
+        <th align="left">昵称</th>
+        <th align="left">新增积分</th>
+        <th align="left">新增经验</th>
+        <th align="left">新增金币</th>
+        <th align="left">新增声望</th>
+        <th align="left">评论ID</th>
+        <th align="left">评论文章链接</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+    </tr>
+</table>
+<p align="right"><b>{{dateTime "2006-01-02 15:04"}}</b></p>
+<p align="right"><b>{{dateTime "2006-01-02 15:04"}}</b></p>
+{{.SignResult}}
