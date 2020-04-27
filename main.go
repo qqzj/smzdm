@@ -18,31 +18,16 @@ var (
 	conf              *config = &config{}
 	configPath        *string = nil
 	defaultConfigPath string  = "config.sample.yaml"
+	signResult        []signJson
+	commentResult     []commentJson
 )
-
-type account struct {
-	Username  string `yaml:"username"`
-	Phone     string `yaml:"phone"`
-	UserAgent string `yaml:"userAgent"`
-	Cookies   string `yaml:"cookies"`
-}
-type config struct {
-	EmailFrom         string    `yaml:"emailFrom"`
-	EmailFromPassword string    `yaml:"emailFromPassword"`
-	EmailFromSMTP     string    `yaml:"emailFromSMTP"`
-	EmailTo           []string  `yaml:"emailTo"`
-	DefaultUserAgent  string    `yaml:"defaultUserAgent"`
-	DelayMin          float32   `yaml:"delayMin"`
-	DelayMax          float32   `yaml:"delayMax"`
-	Accounts          []account `yaml:"accounts"`
-	Comments          []string  `yaml:"comments"`
-}
 
 func init() {
 	parseConf()
 }
 
 func main() {
+
 	if len(conf.Accounts) > 0 {
 		wg := &sync.WaitGroup{}
 		for _, acnt := range conf.Accounts {
@@ -50,10 +35,12 @@ func main() {
 			acnt := acnt
 			go func() {
 				defer wg.Done()
-				toSign(acnt)
+				toSignAndComment(acnt)
 			}()
 		}
 		wg.Wait()
+		send()
+		// return
 	}
 }
 
@@ -102,7 +89,7 @@ func parseConf() {
 	checkError(err)
 }
 
-func toSign(acnt account) {
+func toSignAndComment(acnt account) {
 	// 实例化
 	var smzdm smzdm = NewCracker(conf.Accounts[0])
 
@@ -113,7 +100,7 @@ func toSign(acnt account) {
 	} else {
 		log.Printf("签到成功")
 	}
-
+	return
 	// ②获取最新文章
 	postID := smzdm.getPostID()
 	log.Printf("获取最新文章: %+v\n", postID)
@@ -121,8 +108,8 @@ func toSign(acnt account) {
 	mtrand := rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	// ③前5篇文章留言
-	if len(postID) < 5 {
-		log.Panicf("获取最新文章[]篇, 数据异常, 不予评论")
+	if postIDNum := len(postID); postIDNum < 5 {
+		log.Panicf("获取最新文章[%d]篇, 数据异常, 不予评论", postIDNum)
 	}
 	confCommentsLen := len(conf.Comments)
 	for _, id := range postID {
