@@ -11,8 +11,6 @@ import (
 
 func send() {
 	mailConten := parseMail()
-	print(string(mailConten))
-	return
 	// 解析邮件服务器主机和端口
 	smtpHost := []byte(conf.EmailFromSMTP)[0:strings.LastIndex(conf.EmailFromSMTP, ":")]
 	// 认证
@@ -38,11 +36,15 @@ func parseMail() []byte {
 	err = tpl.Execute(&mailContent, struct {
 		Conf          config
 		Content       string
+		StartAt       time.Time
+		EndAt         time.Time
 		SignResult    []signJson
 		CommentResult []commentJson
 	}{
 		Conf:          *conf,
 		Content:       "Hello SMZDM!!" + time.Now().Format(time.Kitchen),
+		StartAt:       startAt,
+		EndAt:         time.Now(),
 		SignResult:    signResult,
 		CommentResult: commentResult,
 	})

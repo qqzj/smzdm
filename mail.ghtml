@@ -4,6 +4,7 @@ Subject: {{.Conf.EmailToSubject}}_{{dateTime "20060102"}}
 Content-Type: text/html; charset=utf-8
 
 <hr />
+{{if .SignResult}}
 <table width="100%" border="1" cellspacing="0" cellpadding="0">
     <caption>签到数据</caption>
     <tr>
@@ -19,19 +20,25 @@ Content-Type: text/html; charset=utf-8
         <th align="left">等级</th>
     </tr>
     <tr>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
+        {{range .SignResult}}
+        <td>{{.Index}}</td>
+        <td>{{.Account.Username}}</td>
+        <td>{{.Time.Format "2006-01-02 15:04:05"}}</td>
+        <td>{{.Data.AddPoint}}</td>
+        <td>{{.Data.CheckinNum}}</td>
+        <td>{{.Data.Point}}</td>
+        <td>{{.Data.Exp}}</td>
+        <td>{{.Data.Gold}}</td>
+        <td>{{.Data.Prestige}}</td>
+        <td>{{.Data.Rank}}</td>
+        {{end}}
     </tr>
 </table>
+{{else}}
+<i>暂无[签到数据]报告</i><br />
+{{end}}
 <hr />
+{{if .CommentResult}}
 <table width="100%" border="1" cellspacing="0" cellpadding="0">
     <caption>评论数据</caption>
     <tr>
@@ -48,19 +55,23 @@ Content-Type: text/html; charset=utf-8
         <th align="left">评论文章链接</th>
     </tr>
     <tr>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
+        {{range .CommentResult}}
+        <td>{{.Index}}</td>
+        <td>{{.Account.Username}}</td>
+        <td>{{.Time.Format "2006-01-02 15:04:05"}}</td>
+        <td>{{.ErrorMsg.CommentContent}}</td>
+        <td>{{.ErrorMsg.DisplayName}}</td>
+        <td>{{.ErrorMsg.PostPoints}}</td>
+        <td>{{.ErrorMsg.PostExperience}}</td>
+        <td>{{.ErrorMsg.PostGold}}</td>
+        <td>{{.ErrorMsg.PostPrestige}}</td>
+        <td>{{.ErrorMsg.CommentID}}</td>
+        <td><a href="https://www.smzdm.com/p/{{.PostID}}/#comments" target="_blank">链接</a></td>
+        {{end}}
     </tr>
 </table>
-<p align="right"><b>{{dateTime "2006-01-02 15:04"}}</b></p>
-<p align="right"><b>{{dateTime "2006-01-02 15:04"}}</b></p>
-{{.SignResult}}
+{{else}}
+<i>暂无[评论数据]报告</i><br />
+{{end}}
+<p align="right">START At: <b>{{.StartAt.Format "2006-01-02 15:04:05"}}</b></p>
+<p align="right">END At: <b>{{.EndAt.Format "2006-01-02 15:04:05"}}</b></p>

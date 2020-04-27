@@ -1,5 +1,7 @@
 package main
 
+import "time"
+
 type account struct {
 	Username  string `yaml:"username"`
 	Phone     string `yaml:"phone"`
@@ -27,14 +29,14 @@ type commonData struct {
 
 type signData struct {
 	AddPoint    int    `json:"add_point"`
-	CheckinNum  int    `json:"checkin_num"`
+	CheckinNum  string `json:"checkin_num"`
 	Point       int    `json:"point"`
 	Exp         int    `json:"exp"`
 	Gold        int    `json:"gold"`
 	Prestige    int    `json:"prestige"`
 	Rank        int    `json:"rank"`
 	Slogan      string `json:"slogan"`
-	Cards       int    `json:"cards"`
+	Cards       string `json:"cards"`
 	CanContract int    `json:"can_contract"`
 }
 
@@ -42,6 +44,9 @@ type signJson struct {
 	ErrorCode int      `json:"error_code"`
 	ErrorMsg  int      `json:"error_msg"`
 	Data      signData `json:"data"`
+	Index     int
+	Account   account
+	Time      time.Time
 }
 
 type commentData struct {
@@ -49,7 +54,7 @@ type commentData struct {
 	PostExperience   int           `json:"post_experience"`
 	PostGold         int           `json:"post_gold"`
 	PostPrestige     int           `json:"post_prestige"`
-	CommentID        int           `json:"comment_ID"`
+	CommentID        string        `json:"comment_ID"`
 	FormatDate       string        `json:"format_date"`
 	FormatDateClient string        `json:"format_date_client"`
 	ParentData       []interface{} `json:"parent_data"`
@@ -61,6 +66,10 @@ type commentData struct {
 }
 
 type commentJson struct {
-	ErrorCode int      `json:"error_code"`
-	ErrorMsg  signData `json:"error_msg"`
+	ErrorCode int         `json:"error_code"`
+	ErrorMsg  commentData `json:"error_msg"`
+	Index     int
+	Account   account
+	PostID    int
+	Time      time.Time
 }

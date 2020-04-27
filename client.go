@@ -21,12 +21,13 @@ type smzdm interface {
 }
 
 type cracker struct {
+	index   int
 	account account
 }
 
 // NewCracker ...
-func NewCracker(account account) *cracker {
-	return &cracker{account: account}
+func NewCracker(index int, account account) *cracker {
+	return &cracker{index: index, account: account}
 }
 
 func (c *cracker) handle(method, url, referer string, body *io.Reader) []byte {
@@ -78,6 +79,9 @@ func (c *cracker) smzdmSign() (bool, error) {
 	jsonStr := reg.ReplaceAll(content, []byte(`$1`))
 	json.Unmarshal(jsonStr, jsonData)
 	if jsonData.ErrorCode == 0 {
+		jsonData.Index = c.index
+		jsonData.Account = c.account
+		jsonData.Time = time.Now()
 		signResult = append(signResult, *jsonData)
 		return true, nil
 	}
@@ -93,6 +97,10 @@ func (c *cracker) smzdmCommit(postID int, comment string) (bool, error) {
 	jsonStr := reg.ReplaceAll(content, []byte(`$1`))
 	json.Unmarshal(jsonStr, jsonData)
 	if jsonData.ErrorCode == 0 {
+		jsonData.Index = c.index
+		jsonData.Account = c.account
+		jsonData.PostID = postID
+		jsonData.Time = time.Now()
 		commentResult = append(commentResult, *jsonData)
 		return true, nil
 	}
