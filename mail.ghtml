@@ -19,8 +19,8 @@ Content-Type: text/html; charset=utf-8
         <th align="left">声望</th>
         <th align="left">等级</th>
     </tr>
+    {{range .SignResult}}
     <tr>
-        {{range .SignResult}}
         <td>{{.Index}}</td>
         <td>{{.Account.Username}}</td>
         <td>{{.Time.Format "2006-01-02 15:04:05"}}</td>
@@ -31,8 +31,8 @@ Content-Type: text/html; charset=utf-8
         <td>{{.Data.Gold}}</td>
         <td>{{.Data.Prestige}}</td>
         <td>{{.Data.Rank}}</td>
-        {{end}}
     </tr>
+    {{end}}
 </table>
 {{else}}
 <i>暂无[签到数据]报告</i><br />
@@ -54,8 +54,8 @@ Content-Type: text/html; charset=utf-8
         <th align="left">评论ID</th>
         <th align="left">评论文章链接</th>
     </tr>
+    {{range .CommentResult}}
     <tr>
-        {{range .CommentResult}}
         <td>{{.Index}}</td>
         <td>{{.Account.Username}}</td>
         <td>{{.Time.Format "2006-01-02 15:04:05"}}</td>
@@ -67,8 +67,8 @@ Content-Type: text/html; charset=utf-8
         <td>{{.ErrorMsg.PostPrestige}}</td>
         <td>{{.ErrorMsg.CommentID}}</td>
         <td><a href="https://www.smzdm.com/p/{{.PostID}}/#comments" target="_blank">链接</a></td>
-        {{end}}
     </tr>
+    {{end}}
 </table>
 {{else}}
 <i>暂无[评论数据]报告</i><br />
