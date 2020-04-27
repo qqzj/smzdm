@@ -105,6 +105,8 @@ func toSignAndComment(smzdmer smzdm) {
 	log.Printf("获取最新文章: %+v\n", postID)
 
 	// ③前n篇文章留言
+	var usedCommentIDs map[int]bool
+	usedCommentIDs = make(map[int]bool)
 	mtrand := rand.New(rand.NewSource(time.Now().UnixNano()))
 	if postIDNum := len(postID); postIDNum < conf.PostCommentMax {
 		log.Panicf("获取最新文章[%d]篇, 数据异常, 不予评论", postIDNum)
@@ -113,6 +115,14 @@ func toSignAndComment(smzdmer smzdm) {
 	for _, id := range postID {
 		// 随机评论
 		randCommentsID := int(mtrand.Float32() * float32(confCommentsLen-1))
+		// 检测这条评论是否已经用过了
+		if _, ok := usedCommentIDs[randCommentsID]; ok {
+			if randCommentsID < confCommentsLen-2 {
+				randCommentsID++
+			} else {
+				randCommentsID--
+			}
+		}
 		comment := conf.Comments[randCommentsID]
 		// 防止发送过快
 		td := time.Duration(conf.DelayMin+mtrand.Float32()*(conf.DelayMax-conf.DelayMin)) * time.Second
