@@ -1,27 +1,31 @@
- # 发件服务器账号
+# 发件服务器账号
 emailFrom: "xxxxxx@qq.com"
 # 发件服务器主机
 emailFromSMTP: "smtp.qq.com:25"
- # 发件服务器密码, QQ邮箱设置独立密码后，进入邮箱需要输入独立密码验证
+# 发件服务器密码, QQ邮箱设置独立密码后，进入邮箱需要输入独立密码验证
 emailFromPassword: "xxxxxx"
- # 收件服务器账号
+# 邮件标题, 自动添加年月日
+emailToSubject: "Smzdm_Auto_Sign_Report"
+# 收件服务器账号
 emailTo:
     - "xxxxxx@126.com"
- # 可选浏览器UA
+# 可选浏览器UA
 defaultUserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"
- # 最小评论间隔
+# 最小评论间隔
 delayMin: 300
- # 最大评论间隔
+# 最大评论间隔
 delayMax: 3600
+# 每天评论前n篇文章
+postCommentMax: 1
 accounts:
     -
-         # 账号
+        # 账号
         "username": "user0001"
-         # 手机号
+        # 手机号
         "phone": "18800001111"
-         # 个性化浏览器UA
+        # 个性化浏览器UA
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"
-        # 浏览器请求头Cookie
+    # 浏览器请求头Cookie
         "cookies": "xxxxxx=yyyyyy"
 # 评论池, 随机选取使用
 comments:
