@@ -9,14 +9,19 @@ emailToSubject: "Smzdm_Auto_Sign_Report"
 # 收件服务器账号
 emailTo:
     - "xxxxxx@126.com"
+
 # 可选浏览器UA
 defaultUserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"
+
+
 # 最小评论间隔, 单位:秒
 delayMin: 300
 # 最大评论间隔, 单位:秒
 delayMax: 3600
 # 每天评论前n篇文章
 postCommentMax: 3
+
+# 用户账号, 支持多账号
 accounts:
     -
         # 账号
@@ -25,8 +30,9 @@ accounts:
         "phone": "18800001111"
         # 个性化浏览器UA
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"
-    # 浏览器请求头Cookie
+        # 浏览器请求头Cookie
         "cookies": "xxxxxx=yyyyyy"
+
 # 评论池, 随机选取使用
 comments:
     - "真的及时,正好需要,已入手[高兴]"
