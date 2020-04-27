@@ -1,0 +1,44 @@
+{
+    "FixedFileInfo": {
+        "FileVersion": {
+            "Major": 1,
+            "Minor": 0,
+            "Patch": 0,
+            "Build": 0
+        },
+        "ProductVersion": {
+            "Major": 1,
+            "Minor": 0,
+            "Patch": 0,
+            "Build": 0
+        },
+        "FileFlagsMask": "3f",
+        "FileFlags ": "00",
+        "FileOS": "040004",
+        "FileType": "01",
+        "FileSubType": "00"
+    },
+    "StringFileInfo": {
+        "FileDescription": "什么值得买自动脚本",
+        "ProductName": "Smzdm Auto Script",
+        "ProductVersion": "1.0.0.0",
+        "LegalCopyright": "Copyright © 1990-2020 smzdm.com",
+        "LegalTrademarks": "SMZDM",
+        "OriginalFilename": "smzdm.exe",
+        "Comments": "",
+        "CompanyName": "",
+        "FileVersion": "",
+        "InternalName": "",
+        "PrivateBuild": "",
+        "SpecialBuild": ""
+    },
+    "VarFileInfo": {
+        "Translation": {
+            "LangID": "0804",
+            "CharsetID": "04B0"
+        }
+    },
+    "IconPath": "favicon.ico",
+    "ManifestPath": "versioninfo.manifest"
+}
+

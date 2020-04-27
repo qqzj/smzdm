@@ -1,3 +1,4 @@
+//go:generate goversioninfo -64 -o icon.syso
 package main
 
 import (
