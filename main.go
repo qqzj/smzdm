@@ -27,14 +27,15 @@ type account struct {
 	Cookies   string `yaml:"cookies"`
 }
 type config struct {
-	EmailName        string    `yaml:"emailName"`
-	EmailPassword    string    `yaml:"emailPassword"`
-	ToEmail          string    `yaml:"toEmail"`
-	DefaultUserAgent string    `yaml:"defaultUserAgent"`
-	DelayMin         float32   `yaml:"delayMin"`
-	DelayMax         float32   `yaml:"delayMax"`
-	Accounts         []account `yaml:"accounts"`
-	Comments         []string  `yaml:"comments"`
+	EmailFrom         string    `yaml:"emailFrom"`
+	EmailFromPassword string    `yaml:"emailFromPassword"`
+	EmailFromSMTP     string    `yaml:"emailFromSMTP"`
+	EmailTo           []string  `yaml:"emailTo"`
+	DefaultUserAgent  string    `yaml:"defaultUserAgent"`
+	DelayMin          float32   `yaml:"delayMin"`
+	DelayMax          float32   `yaml:"delayMax"`
+	Accounts          []account `yaml:"accounts"`
+	Comments          []string  `yaml:"comments"`
 }
 
 func init() {

@@ -1,9 +1,12 @@
  # 发件服务器账号
-emailName: "xxxxxx@qq.com"
- # 发件服务器密码
-emailPassword: "xxxxxx"
+emailFrom: "xxxxxx@qq.com"
+# 发件服务器主机
+emailFromSMTP: "smtp.qq.com:25"
+ # 发件服务器密码, QQ邮箱设置独立密码后，进入邮箱需要输入独立密码验证
+emailFromPassword: "xxxxxx"
  # 收件服务器账号
-toEmail: "xxxxxx@126.com"
+emailTo:
+    - "xxxxxx@126.com"
  # 可选浏览器UA
 defaultUserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"
  # 最小评论间隔
