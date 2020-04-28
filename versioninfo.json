@@ -19,7 +19,7 @@
         "FileSubType": "00"
     },
     "StringFileInfo": {
-        "FileDescription": "什么值得买自动脚本",
+        "FileDescription": "什么值得买自动签到脚本",
         "ProductName": "Smzdm Auto Script",
         "ProductVersion": "1.0.0.0",
         "LegalCopyright": "Copyright © 1990-2020 smzdm.com",
